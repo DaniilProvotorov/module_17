@@ -42,7 +42,9 @@ async def user_update(db: Annotated[Session, Depends(get_db)], update_user: Upda
     if user is None:
         raise HTTPException(status_code=404, detail='User was not found')
     else:
-        db.execute(update(User).where(User.id == user_id).values(update_user))
+        db.execute(update(User).where(User.id == user_id).values(firstname=update_user.firstname,
+                                                                 lastname=update_user.lastname,
+                                                                 age=update_user.age))
         db.commit()
         return {'status_code': status.HTTP_200_OK, 'transaction': 'User update is successful!'}
 

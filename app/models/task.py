@@ -14,7 +14,7 @@ class Task(Base):
     priority = Column(Integer, default=0)
     completed = Column(Boolean, default=False)
     slug = Column(String, unique=True, index=True)
-    tasks = relationship('User', back_populates='tasks')
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False, index=True)
+    tasks = relationship('User', backref='task')
 
 print(CreateTable(Task.__table__))
